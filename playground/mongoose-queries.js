@@ -39,3 +39,29 @@ User.findById(user_id).then((user) => {
 }, (e) => {
     console.log(e)
 });
+
+var validateID = id => {
+    if (!ObjectID.isValid(id)) {
+        return false;
+    }
+    return true;
+};
+
+var todoFindById = id => {
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
+            console.log('todo not found');
+            return 2;
+        }
+        console.log(todo);
+        return 0;
+    }, (e) => {
+        console.log('error is found');
+        return 1;
+    });
+}
+
+module.exports = {
+    validateID,
+    todoFindById
+}
