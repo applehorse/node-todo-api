@@ -47,17 +47,17 @@ var validateID = id => {
     return true;
 };
 
-var todoFindById = id => {
+var todoFindById = (id, callback) => {
     Todo.findById(id).then((todo) => {
         if (!todo) {
             console.log('todo not found');
-            return 2;
+            return callback(2);
         }
         console.log(todo);
-        return 0;
-    }, (e) => {
+        return callback(0);
+    }).catch((e) => {
         console.log('error is found');
-        return 1;
+        return callback(1);
     });
 }
 

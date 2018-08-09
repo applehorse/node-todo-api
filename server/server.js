@@ -37,7 +37,7 @@ app.get('/todos/:id', (req, res) => {
     // Valid id using is valid
     //404 - send back empty send
     if (!validateID(id)) {
-        res.status(404).send('id is invalid');
+        return res.status(404).send('id is invalid');
     }
 
     //res.status(200).send(id);
@@ -48,32 +48,35 @@ app.get('/todos/:id', (req, res) => {
     //id not todo - send 404 with empty body
     //error
     //send 400 with empty body
-    // todoFindById(id).then(ret => {
-    //     if (ret == 0) {
-    //         res.status(200).send(id);
-    //     }
 
-    //     if (ret == 1) {
-    //         res.status(400).send();
-    //     }
-
-    //     if (ret == 2) {
-    //         res.status(404).send();
+    // todoFindById(id, ret => {
+    //     switch (ret) {
+    //         case 0:
+    //             res.status(200).send(id);
+    //             break;
+    //         case 1:
+    //             res.status(400).send('Unknown error');
+    //             break;
+    //         case 2:
+    //             res.status(404).send('id is not found');
+    //             break;
+    //         default:
+    //             res.status(400).send('Error.');
+    //             break;
     //     }
     // });
 
     Todo.findById(id).then((todo) => {
         if (!todo) {
             //console.log('todo not found');
-            res.status(404).send('id is not found');
+            return res.status(404).send('id is not found again');
         }
         //console.log(todo);
         res.status(200).send({ todo });
-    }, (e) => {
+    }).catch((e) => {
         //console.log('error is found');
         res.status(400).send('Unknown error');
     });
-
 });
 
 app.listen(3000, () => {
