@@ -114,3 +114,71 @@ describe("Get /todos/:id", () => {
     })
 
 });
+
+describe("Delete /todos/:id", () => {
+
+    it("Delete successfully", done => {
+        request(app)
+            .delete(`/todos/${todos[0]._id.toHexString()}`)
+            .expect(200)
+            .expect(res => {
+                expect(res.body.todo).toMatchObject(todoSchema);
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                Todo.findById(`${todos[0]._id.toHexString()}`).then(todo => {
+                    expect(todo).toBeNull;
+                    done();
+                }).catch(e => done(e));
+            });
+    });
+
+
+    it("Delete failedly because of invald ID", done => {
+        request(app)
+            .delete('/todos/12343')
+            .expect(404)
+            .expect(res => {
+                expect(res.text).toBe('ID is invalid.');
+            })
+            .end(done);
+    });
+
+    it("Delete failedly because of NULL ID", done => {
+        request(app)
+            .delete(`/todos/${todos[0]._id.toHexString()}`)
+            .expect(200)
+            .expect(res => {
+                expect(res.body.todo).toMatchObject(todoSchema);
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                request(app)
+                    .delete(`/todos/${todos[0]._id.toHexString()}`)
+                    .expect(404)
+                    .expect(res => {
+                        expect(res.text).toBe('ID is Null.');
+                    })
+                    .end(done);
+            });
+
+    });
+
+    it("Delete failedly because of NULL ID test 2", done => {
+        let hexID = new ObjectID().toHexString();
+        request(app)
+            .delete(`/todos/${hexID}`)
+            .expect(404)
+            .expect(res => {
+                expect(res.text).toBe('ID is Null.');
+            })
+            .end(done);
+
+    });
+
+
+});

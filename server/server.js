@@ -88,12 +88,12 @@ app.delete('/todos/:id', (req, res) => {
         return res.status(404).send('ID is invalid.');
     }
 
-    Todo.findByIdAndRemove(id).then(result => {
-        if (!result) {
+    Todo.findByIdAndRemove(id).then(todo => {
+        if (!todo) {
             return res.status(404).send('ID is Null.');
         }
 
-        res.status(200).send(result);
+        res.status(200).send({ todo });
     }).catch(e => {
         res.status(400).send('Unkown Error.');
     });
