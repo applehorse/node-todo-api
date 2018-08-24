@@ -11,7 +11,9 @@ const todos = [{
     text: 'First test todo'
 }, {
     _id: new ObjectID(),
-    text: 'Second test todo'
+    text: 'Second test todo',
+    completed: true,
+    completedAt: 333
 }];
 
 beforeEach((done) => {
@@ -181,4 +183,58 @@ describe("Delete /todos/:id", () => {
     });
 
 
+});
+
+const patchObj0 = {
+    completed: true,
+    text: "patch test"
+};
+
+const patchObj1 = {
+    completed: false,
+    text: "patch test"
+};
+
+describe("PATCH /todos/:id", () => {
+    it("should updae the todo", done => {
+        //grab id of first itme
+        //update text, set completed true
+        //200
+        //text is changed, completed is true, completedAt is a number .toBeA
+        request(app)
+            .patch(`/todos/${todos[0]._id.toHexString()}`)
+            .set("Accept", "applicaton/json")
+            .send(patchObj0)
+            .expect(200)
+            .expect("Content-Type", /json/)
+            .expect(response => {
+                expect(response.body.todo.text).toEqual(expect.stringMatching(patchObj0.text));
+                expect(response.body.todo.text).toBe(patchObj0.text);
+                expect(response.body.todo.completed).toBeTruthy();
+                expect(response.body.todo.completedAt).toEqual(expect.any(Number));
+            })
+            .end(done);
+
+
+    });
+
+    it("should clear completedAt when todo is not completed", done => {
+        //grab id of second todo item
+        //update text, set completed to false
+        //200
+        //text is changed, completed false, completeAt is null .toNotExist
+        request(app)
+            .patch(`/todos/${todos[1]._id.toHexString()}`)
+            .set("Accept", "application/json")
+            .send(patchObj1)
+            .expect(200)
+            .expect("Content-Type", /json/)
+            .expect(response => {
+                expect(response.body.todo.text).toBe(patchObj1.text);
+                expect(response.body.todo.completed).toBeFalsy();
+                expect(response.body.todo.completedAt).toBeNull();
+            })
+            .end(done);
+
+    });
 });
