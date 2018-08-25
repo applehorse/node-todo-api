@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "NODE_ENV=test mocha server/**/*.test.js",
+    "test": "NODE_ENV=test mocha server/**/*.test.js --opts server/test/mocha.opts",
     "test-watch": "nodemon --exec 'npm test'"
   },
   "engines": {
@@ -24,6 +24,7 @@
   "devDependencies": {
     "expect": "^23.4.0",
     "mocha": "^5.2.0",
+    "mochawesome": "^3.0.3",
     "nodemon": "^1.18.3",
     "supertest": "^3.1.0"
   }

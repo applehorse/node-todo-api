@@ -1,0 +1,10 @@
+{
+    "reporterEnabled": "mochawesome",
+    "mochawesomeReporterOptions": {
+        "timestamp": "dd_mm_yyyy-HH_MM_ss",
+        "reportDir": "reports",
+        "reportFilename": "index",
+        "reportTitle": "William's NODE_TODO_API Testing",
+        "reportPageTitle": "API Tests"
+    }
+}
