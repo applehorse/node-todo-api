@@ -1,10 +1,13 @@
 {
-    "reporterEnabled": "mochawesome",
+    "reporterEnabled": "mochawesome,mocha-junit-reporter",
+    "mochaJunitReporterReporterOptions": {
+        "mochaFile": "./reports/junit.xml"
+    },
     "mochawesomeReporterOptions": {
         "timestamp": "dd_mm_yyyy-HH_MM_ss",
         "reportDir": "reports",
         "reportFilename": "index",
-        "reportTitle": "William's NODE_TODO_API Testing",
-        "reportPageTitle": "API Tests"
+        "reportTitle": "William Node_To_Do API Testing",
+        "reportPageTitle": "Node_To_Do API Tests"
     }
 }

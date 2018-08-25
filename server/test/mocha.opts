@@ -1,2 +1,2 @@
---reporter mochawesome
---reporter-options overwrite=true,timestamp=dd_mm_yyyy-HH_MM_ss,reportDir=reports,reportFilename=index,reportTitle=William\ TODO_API\ Testing,reportPageTitle=TODO_API\ Tests
+--reporter mocha-multi-reporters
+--reporter-options configFile=./server/test/reporters.config.json
