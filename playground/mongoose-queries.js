@@ -31,14 +31,14 @@ var user_id = '5b5c43cc41fd733ec0c57457';
 
 // }).catch(e => console.log(e));
 
-User.findById(user_id).then((user) => {
-    if (!user) {
-        return console.log('User not found');
-    }
-    console.log(JSON.stringify(user, undefined, 2));
-}, (e) => {
-    console.log(e)
-});
+// User.findById(user_id).then((user) => {
+//     if (!user) {
+//         return console.log('User not found');
+//     }
+//     console.log(JSON.stringify(user, undefined, 2));
+// }, (e) => {
+//     console.log(e)
+// });
 
 var validateID = id => {
     if (!ObjectID.isValid(id)) {

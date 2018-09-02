@@ -4,9 +4,9 @@ const { MongoClient, ObjectID } = require('mongodb');
 // var obj = new ObjectID();
 // console.log(obj);
 
-var user = { name: 'Andrew', age: 25 };
-var { name } = user;
-console.log(name);
+// var user = { name: 'Andrew', age: 25 };
+// var { name } = user;
+// console.log(name);
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     if (err) {
@@ -29,16 +29,16 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     //     console.log(result);
     // });
 
-    db.collection('Users').findOneAndUpdate(
-        { _id: new ObjectID('5b471beb94dc59e6c9eb4e9f') },
-        {
-            $inc: { age: 1 },
-            $set: { name: "William" }
-        }, {
-            returnOriginal: false
-        }).then((result) => {
-            console.log(result);
-        })
+    // db.collection('Users').findOneAndUpdate(
+    //     { _id: new ObjectID('5b471beb94dc59e6c9eb4e9f') },
+    //     {
+    //         $inc: { age: 1 },
+    //         $set: { name: "William" }
+    //     }, {
+    //         returnOriginal: false
+    //     }).then((result) => {
+    //         console.log(result);
+    //     })
 
     client.close();
 });
